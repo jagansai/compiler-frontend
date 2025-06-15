@@ -1,0 +1,11 @@
+{
+    "public": "dist",
+    "rewrites": [
+        {
+            "source": "/**",
+            "destination": "/index.html"
+        }
+    ],
+    "historyApiFallback": true,
+    "single": true
+}

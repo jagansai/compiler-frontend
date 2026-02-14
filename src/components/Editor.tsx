@@ -4,12 +4,10 @@ import type { BeforeMount } from '@monaco-editor/react';
 import { Box } from '@mui/material';
 import type { editor } from 'monaco-editor';
 
-type Language = 'java' | 'cpp';
-
 interface EditorProps {
     code: string;
     onChange: (value: string | undefined) => void;
-    language: Language;
+    language: string;
 }
 
 const editorOptions: editor.IStandaloneEditorConstructionOptions = {
@@ -44,7 +42,8 @@ const Editor: FC<EditorProps> = ({ code, onChange, language }) => {
         <Box sx={{ height: '100%', border: '1px solid #ccc' }}>
             <MonacoEditor
                 height="100%"
-                defaultLanguage={language === 'cpp' ? 'cpp' : 'java'}
+                defaultLanguage={language}
+                language={language}
                 value={code}
                 onChange={onChange}
                 theme="vs-dark"

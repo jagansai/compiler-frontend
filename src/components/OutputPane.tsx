@@ -1,38 +1,38 @@
 import type { FC } from 'react';
-import { Box, Paper } from '@mui/material';
+import MonacoEditor from '@monaco-editor/react';
+import { Box, Typography } from '@mui/material';
 
 interface OutputPaneProps {
     output: string;
+    title?: string;
 }
 
-const OutputPane: FC<OutputPaneProps> = ({ output }) => {
+const OutputPane: FC<OutputPaneProps> = ({ output, title }) => {
     return (
-        <Box sx={{ height: '100%', border: '1px solid #ccc' }}>
-            <Paper
-                sx={{
-                    height: '100%',
-                    bgcolor: '#1e1e1e',
-                    color: '#fff',
-                    p: 2,
-                    overflow: 'auto'
-                }}
-            >
-                <pre
-                    style={{
-                        margin: 0,
-                        padding: 0,
-                        fontFamily: '"Consolas", "Monaco", "Courier New", monospace',
-                        fontSize: '14px',
-                        lineHeight: '1.6',
-                        whiteSpace: 'pre',
-                        tabSize: 4,
-                        color: '#d4d4d4',
-                        overflowX: 'auto',
+        <Box sx={{ height: '100%', border: '1px solid #ccc', display: 'flex', flexDirection: 'column' }}>
+            {title && (
+                <Box sx={{ bgcolor: '#1e1e1e', color: '#ccc', px: 2, py: 0.5, borderBottom: '1px solid #444' }}>
+                    <Typography variant="body2">{title}</Typography>
+                </Box>
+            )}
+            <Box sx={{ flexGrow: 1 }}>
+                <MonacoEditor
+                    height="100%"
+                    defaultLanguage="plaintext"
+                    value={output}
+                    theme="vs-dark"
+                    options={{
+                        readOnly: true,
+                        minimap: { enabled: false },
+                        fontSize: 13,
+                        lineNumbers: 'off',
+                        wordWrap: 'off',
+                        scrollBeyondLastLine: false,
+                        automaticLayout: true,
+                        renderWhitespace: 'none',
                     }}
-                >
-                    {output}
-                </pre>
-            </Paper>
+                />
+            </Box>
         </Box>
     );
 };
